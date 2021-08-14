@@ -1,0 +1,9 @@
+﻿<div class="login_form_wrapper">
+  <h2>Login</h2>
+  <form class="login_form" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <input id="first-name" placeholder="email..." type="email" formControlName="email">
+    <input id="last-name" placeholder="password..." type="password" formControlName="password">
+    <button type="submit">Login</button>
+  </form>
+
+</div>﻿

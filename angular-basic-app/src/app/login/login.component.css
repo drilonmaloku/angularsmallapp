@@ -1,0 +1,34 @@
+.login_form_wrapper {
+  padding-top: 100px;
+}
+h2 {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.login_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  margin: 0 auto;
+}
+.login_form input {
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  width: 100%;
+}
+
+.login_form button {
+  background: white;
+  color : black;
+  font-weight: bold;
+  padding: 10px 25px;
+  border : 2px solid black;
+  cursor: pointer;
+  transition: all .3s ease;
+}
+.login_form button:hover {
+  background: black;
+  color : white;
+}
