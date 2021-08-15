@@ -1,9 +1,24 @@
-﻿<div class="login_form_wrapper">
-  <h2>Login</h2>
-  <form class="login_form" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-    <input id="first-name" placeholder="email..." type="email" formControlName="email">
-    <input id="last-name" placeholder="password..." type="password" formControlName="password">
-    <button type="submit">Login</button>
-  </form>
+﻿<div class="navbar">
+  <a routerLink="" href="">
+    <img src="../assets/logo.png" alt="">
+  </a>
 
+</div>
+<div class="login_form_wrapper">
+  <h2>Login</h2>
+  <form class="login_form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <input id="first-name" placeholder="email..." type="email" formControlName="email"
+           class="form-control">
+    <div *ngIf="f.email.dirty && f.email.touched && f.email.errors" class="alert alert-danger fade in alert-dismissible show w-100">
+        <div *ngIf="f.email.errors?.required">Email is required</div>
+        <div *ngIf="f.email.errors?.email">Email is not valid</div>
+    </div>
+    <input id="last-name" placeholder="password..." type="password" formControlName="password"
+           class="form-control" >
+    <div *ngIf="(f.password.dirty && f.password.touched && f.password.errors)" class="alert alert-danger w-100">
+      Password is required
+    </div>
+
+    <button class="ucx_btn" type="submit">Login</button>
+  </form>
 </div>﻿

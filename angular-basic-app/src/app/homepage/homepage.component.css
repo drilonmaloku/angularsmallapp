@@ -1,7 +1,4 @@
-.navbar {
-  display: flex;
-  border-bottom: 2px solid black;
-}
-.navbar img {
-  width: 150px;
+.main_page_wrapper {
+  text-align: center;
+  padding-top: 200px;
 }

@@ -1,9 +1,39 @@
 <div class="navbar">
   <img src="../assets/logo.png" alt="">
-  <div>
-    <a routerLink="../login" href="">Login</a>
+  <div class="logout_box" *ngIf="userLogedIn">
+    <div class="sphere" [ngStyle]="changeBackground()" >{{currentUser.first_name[0].toUpperCase()}}</div>
+    <h6>Hi,{{currentUser.first_name}}</h6>
+    <button class="ucx_btn"  (click)="logout()">Logout</button>
   </div>
+
+  <div *ngIf="!userLogedIn">
+    <a class="ucx_btn" routerLink="../login" href="">Login</a>
+  </div>
+
 </div>
-<div class="main_page_wrapper">
+<div *ngIf="userLogedIn">
+  <div class="card p-2 m-5">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>co
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.first_name}}</td>
+        <td>{{user.last_name}}</td>
+        <td>{{user.email}}</td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div *ngIf="!userLogedIn" class="main_page_wrapper">
   <h1>Welcome to UCX</h1>
 </div>

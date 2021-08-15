@@ -1,7 +1,7 @@
 ﻿﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {first, map} from 'rxjs/operators';
 
 import {User} from "../_models/user";
 
@@ -11,26 +11,41 @@ export class AuthenticationService {
   public currentUser: Observable<User>;
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(<string>localStorage.getItem('currentUser')));
+    // @ts-ignore
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
+
   }
 
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
   }
 
-  login(username:string, password:string) {
-    return this.http.post<any>(`https://reqres.in/api/login`, { username, password })
+  public getCurrentUser(email:string) {
+    this.http.get<any>(`https://reqres.in/api/users`)
+      .pipe(
+        first()
+      )
+      .subscribe(users => {
+        let usr =users.data.filter((e : any) => e.email == email)[0];
+        localStorage.setItem('currentUser', JSON.stringify(usr));
+        this.currentUserSubject.next(usr);
+      });
+
+  }
+
+  login(email:string, password:string) {
+    return this.http.post<any>(`https://reqres.in/api/login`, { email, password })
       .pipe(map(user => {
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(user);
+        this.getCurrentUser(email);
         return user;
       }));
   }
-
   logout() {
-    // remove user from local storage and set current user to null
     localStorage.removeItem('currentUser');
-    /*this.currentUserSubject.next(null);*/
   }
+  isUserLogedIn(){
+    return this.currentUserSubject.value != null;
+  }
+
 }
